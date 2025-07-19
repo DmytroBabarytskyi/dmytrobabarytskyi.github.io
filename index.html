@@ -5,126 +5,394 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Resume</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            --bg-color: #f4f4f9;
-            --accent-color: #6c63ff;
-            --text-color: #333;
-            --nav-bg: white;
+        /* Стилі тільки для hero секції та специфічні елементи */
+        .hero {
+            position: relative;
+            height: 100vh;
+            background-image: url('assets/Background.png');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
         }
 
-        * {
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background: var(--bg-color);
-            color: var(--text-color);
-        }
-
-        header {
-            position: fixed;
+        .hero-overlay {
+            position: relative;
             width: 100%;
-            top: 0;
-            left: 0;
-            background: var(--nav-bg);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+            height: 100%;
+            background-color: rgba(0, 0, 50, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        nav {
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            padding: 4rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .hero-left {
+            max-width: 55%;
+        }
+
+        .hero-left h4 {
+            font-weight: 300;
+            letter-spacing: 3px;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-left h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-left h3 {
+            font-weight: 300;
+            font-size: 1.5rem;
+        }
+
+        .hero-right {
+            background-color: var(--accent);
+            padding: 2rem;
+            border-radius: 0;
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .hero-right h2 {
+            color: white;
+        }
+
+        .hero-right p {
+            color: white;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .parallax-bg {
+            background-image: url('assets/Background.png');
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 150%;
+            z-index: -1;
+            transform: translateY(0);
+            will-change: transform;
+        }
+
+        .social-links {
+            margin-top: 1rem;
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            padding: 1rem;
+            gap: 1rem;
         }
 
-        nav a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            position: relative;
+        .social-links img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s;
         }
 
-        nav a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -5px;
-            height: 2px;
-            width: 0;
-            background: var(--accent-color);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after,
-        nav a.active::after {
-            width: 100%;
-        }
-
-        section {
-            min-height: 100vh;
-            padding: 6rem 2rem 2rem;
-            max-width: 900px;
-            margin: auto;
-        }
-
-        section h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--accent-color);
+        .social-links img:hover {
+            transform: scale(1.2);
         }
 
         @media (max-width: 768px) {
-            nav {
-                flex-wrap: wrap;
-                gap: 1rem;
+            .hero-content {
+                flex-direction: column;
+                padding: 2rem;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-left, .hero-right {
+                max-width: 100%;
+            }
+
+            .hero-left h1 {
+                font-size: 2.2rem;
             }
         }
     </style>
 </head>
 
 <body>
-<header>
-    <nav>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#experience" class="nav-link">Education & Experience</a>
-        <a href="#skills" class="nav-link">Skills & Languages</a>
-        <a href="#interests" class="nav-link">Interests</a>
-        <a href="#projects" class="nav-link">Projects</a>
+<!-- Loading Screen -->
+<div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <h2>Loading Portfolio...</h2>
+    </div>
+</div>
+
+<header id="navbar">
+    <nav class="nav">
+        <a href="#home" class="nav-logo">MyPortfolio</a>
+        <ul class="nav-links">
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#experience" class="nav-link">Education & Experience</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#interests" class="nav-link">Interests & Languages</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+        </ul>
     </nav>
 </header>
 
+<section id="home" class="hero">
+    <div class="parallax-bg"></div>
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <div class="hero-left">
+                <h4>HELLO, I'M</h4>
+                <h1>Dmytro Babarytskyi</h1>
+                <h3>Junior Software Developer</h3>
+            </div>
+            <div class="hero-right">
+                <img src="assets/Photo.jpg" alt="Your Photo" class="profile-img" />
+                <h2>Dmytro Babarytskyi</h2>
+                <p>BS in Computer Science<br>Kharkiv, Ukraine</p>
+                <p>your@email.com<br>(+380) 123-456-789</p>
+                <div class="social-links">
+                    <a href="#"><img src="assets/linkedin.svg" alt="LinkedIn"></a>
+                    <a href="#"><img src="assets/github.svg" alt="GitHub"></a>
+                    <a href="#"><img src="assets/twitter.svg" alt="Twitter"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
 <main>
-    <section id="about">
-        <h2>About</h2>
-        <p>...</p>
+    <section id="about" data-aos="fade-up" class="section-about staggered-section">
+        <div class="about-content">
+            <div class="about-info-block">
+                <div class="section-header">
+                    <span class="icon-placeholder"> <!-- SVG: 👤 --> </span>
+                    <h2>About</h2>
+                </div>
+                <p>I'm a junior developer passionate about building clean, efficient web applications. I enjoy working with modern JavaScript frameworks and improving UI/UX accessibility.</p>
+                <ul class="about-facts">
+                    <li><span class="fact-icon">🎯</span> Focus: Frontend & UI/UX</li>
+                    <li><span class="fact-icon">🌍</span> Location: Kharkiv, Ukraine</li>
+                    <li><span class="fact-icon">💬</span> Languages: English (B2), Ukrainian (Native)</li>
+                </ul>
+                <a class="btn" href="assets/CV.pdf" download target="_blank">Download CV</a>
+            </div>
+        </div>
     </section>
 
-    <section id="experience">
-        <h2>Education & Experience</h2>
-        <p>...</p>
+    <section id="experience" data-aos="fade-up" class="section-experience staggered-section">
+        <div class="section-header">
+            <span class="icon-placeholder"> <!-- SVG: 🎓 --> </span>
+            <h2>Education & Experience</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Bachelor in Computer Science</h3>
+                    <span>Kharkiv Polytechnic Institute, 2021–2025</span>
+                    <p>Studied software development, data structures, algorithms, and participated in student programming contests.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Intern — Frontend Developer</h3>
+                    <span>SoftServe, Summer 2024</span>
+                    <p>Built responsive components using React and TypeScript; contributed to design system refactoring.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="skills">
-        <h2>Skills & Languages</h2>
-        <p>...</p>
+    <section id="skills" data-aos="fade-up" class="section-skills staggered-section">
+        <div class="section-header">
+            <span class="icon-placeholder"> <!-- SVG: 🛠️ --> </span>
+            <h2>Skills</h2>
+        </div>
+        <div class="skills-list-animated">
+            <div class="skill-bar">
+                <span>JavaScript</span>
+                <div class="skill-info">
+                    <div class="bar"><div class="progress" data-percent="80"></div></div>
+                    <span class="skill-percent">0%</span>
+                </div>
+            </div>
+            <div class="skill-bar">
+                <span>React</span>
+                <div class="skill-info">
+                    <div class="bar"><div class="progress" data-percent="75"></div></div>
+                    <span class="skill-percent">0%</span>
+                </div>
+            </div>
+            <div class="skill-bar">
+                <span>Node.js</span>
+                <div class="skill-info">
+                    <div class="bar"><div class="progress" data-percent="70"></div></div>
+                    <span class="skill-percent">0%</span>
+                </div>
+            </div>
+            <div class="skill-bar">
+                <span>TypeScript</span>
+                <div class="skill-info">
+                    <div class="bar"><div class="progress" data-percent="65"></div></div>
+                    <span class="skill-percent">0%</span>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="interests">
-        <h2>Interests</h2>
-        <p>...</p>
+    <section id="interests" data-aos="fade-up" class="section-interests staggered-section">
+        <div class="section-header">
+            <span class="icon-placeholder"> <!-- SVG: 🌱 --> </span>
+            <h2>Interests & Languages</h2>
+        </div>
+        <div class="interest-grid">
+            <div class="languages-section">
+                <h3>Languages</h3>
+                <div class="language-bar">
+                    <span>Ukrainian (Native)</span>
+                    <div class="bar"><div style="width: 100%"></div></div>
+                </div>
+                <div class="language-bar">
+                    <span>English (B2)</span>
+                    <div class="bar"><div style="width: 75%"></div></div>
+                </div>
+            </div>
+            <div class="interests-section">
+                <h3>Interests & Hobbies</h3>
+                <div class="interests-tags">
+                    <div class="interest-tag">Coding</div>
+                    <div class="interest-tag">Chess</div>
+                    <div class="interest-tag">Hiking</div>
+                    <div class="interest-tag">Photography</div>
+                    <div class="interest-tag">Reading</div>
+                    <div class="interest-tag">Travel</div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="projects">
-        <h2>Projects</h2>
-        <p>...</p>
+    <section id="projects" data-aos="fade-up" class="section-projects staggered-section">
+        <div class="section-header">
+            <span class="icon-placeholder"> <!-- SVG: 💡 --> </span>
+            <h2>Projects</h2>
+        </div>
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="react">React</button>
+            <button class="filter-btn" data-filter="node">Node.js</button>
+            <button class="filter-btn" data-filter="javascript">JavaScript</button>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card" data-category="react node">
+                <div class="project-media">
+                    <img src="assets/project1.jpg" alt="Task Manager App" class="project-image">
+                </div>
+                <h3>Task Manager App</h3>
+                <p>React + Node.js + MongoDB. CRUD tasks with JWT auth.</p>
+                <div class="project-tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">MongoDB</span>
+                </div>
+                <button class="btn project-details-btn" data-project="task-manager">View Details</button>
+            </div>
+            <div class="project-card" data-category="javascript">
+                <div class="project-media">
+                    <img src="assets/project2.jpg" alt="Weather Dashboard" class="project-image">
+                </div>
+                <h3>Weather Dashboard</h3>
+                <p>JavaScript app using OpenWeatherMap API.</p>
+                <div class="project-tags">
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">API</span>
+                    <span class="tag">CSS3</span>
+                </div>
+                <button class="btn project-details-btn" data-project="weather">View Details</button>
+            </div>
+            <div class="project-card" data-category="react">
+                <div class="project-media">
+                    <img src="assets/project3.jpg" alt="E-commerce Platform" class="project-image">
+                </div>
+                <h3>E-commerce Platform</h3>
+                <p>Modern React e-commerce with Redux and Stripe integration.</p>
+                <div class="project-tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Redux</span>
+                    <span class="tag">Stripe</span>
+                </div>
+                <button class="btn project-details-btn" data-project="ecommerce">View Details</button>
+            </div>
+        </div>
     </section>
-</main>
+
+<!-- Project Modal -->
+<div id="project-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-body">
+            <div class="modal-media">
+                <img id="modal-image" src="" alt="Project Screenshot" class="modal-project-image">
+                <video id="modal-video" controls class="modal-project-video" style="display: none;">
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <h2 id="modal-title"></h2>
+            <div class="modal-tags"></div>
+            <p id="modal-description"></p>
+            <div class="modal-features">
+                <h3>Key Features:</h3>
+                <ul id="modal-features-list"></ul>
+            </div>
+            <div class="modal-links">
+                <a href="#" class="btn" id="modal-github">GitHub</a>
+                <a href="#" class="btn" id="modal-demo">Live Demo</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer" data-aos="fade-up">
+    <div class="footer-divider"></div>
+    <div class="footer-content">
+        <div class="footer-social">
+            <a href="#" class="footer-icon"><img src="assets/linkedin.svg" alt="LinkedIn"></a>
+            <a href="#" class="footer-icon"><img src="assets/github.svg" alt="GitHub"></a>
+            <a href="#" class="footer-icon"><img src="assets/twitter.svg" alt="Twitter"></a>
+        </div>
+        <div class="footer-info">
+            <span>© 2024 Dmytro Babarytskyi</span> | <span>Kharkiv, Ukraine</span>
+        </div>
+    </div>
+</footer>
+
+<button id="back-to-top" class="back-to-top">↑</button>
 
 <script>
     const navLinks = document.querySelectorAll(".nav-link");
@@ -145,10 +413,291 @@
         }
     );
 
-    document.querySelectorAll("section").forEach(section => {
+    document.querySelectorAll("section[id]").forEach(section => {
         observer.observe(section);
     });
 </script>
+<script>
+    let lastScroll = 0;
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll <= 0) {
+            navbar.style.top = '0';
+            return;
+        }
+
+        if (currentScroll > lastScroll) {
+            // Прокручуємо вниз — сховати
+            navbar.style.top = '-100px';
+        } else {
+            // Прокручуємо вгору — показати
+            navbar.style.top = '0';
+        }
+
+        lastScroll = currentScroll;
+    });
+</script>
+<script>
+    const parallaxBg = document.querySelector('.parallax-bg');
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        parallaxBg.style.transform = `translateY(${scrolled * 0.4}px)`;
+    });
+</script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 500,
+        offset: 80,
+        easing: 'ease-out-cubic',
+        delay: 0,
+        once: true
+    });
+</script>
+<script>
+    // Back to top functionality
+    const backToTopBtn = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    });
+    
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Animated skill counters
+    function animateSkillCounters() {
+        const skillBars = document.querySelectorAll('.skill-bar');
+        
+        skillBars.forEach(bar => {
+            const progress = bar.querySelector('.progress');
+            const percentSpan = bar.querySelector('.skill-percent');
+            const percent = parseInt(progress.getAttribute('data-percent'));
+            
+            // Початкова ширина 0
+            progress.style.width = '0%';
+            percentSpan.textContent = '0%';
+            
+            let currentPercent = 0;
+            const increment = percent / 50; // 50 steps for smooth animation
+            
+            const timer = setInterval(() => {
+                currentPercent += increment;
+                if (currentPercent >= percent) {
+                    currentPercent = percent;
+                    clearInterval(timer);
+                }
+                
+                progress.style.width = currentPercent + '%';
+                percentSpan.textContent = Math.round(currentPercent) + '%';
+            }, 30);
+        });
+    }
+    
+    // Trigger animation when skills section is visible
+    const skillsSection = document.getElementById('skills');
+    const skillsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateSkillCounters();
+                skillsObserver.unobserve(entry.target);
+            }
+        });
+    });
+    
+    skillsObserver.observe(skillsSection);
+</script>
+
+<script>
+    // Loading screen
+    window.addEventListener('load', () => {
+        const loadingScreen = document.getElementById('loading-screen');
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }, 1000);
+    });
+    
+    // Smooth scroll with easing
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    // Project filtering
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+            
+            // Update active button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Filter projects
+            projectCards.forEach(card => {
+                const categories = card.getAttribute('data-category');
+                if (filter === 'all' || categories.includes(filter)) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+    
+    // Modal functionality
+    const modal = document.getElementById('project-modal');
+    const closeBtn = document.querySelector('.close');
+    const projectDetailsBtns = document.querySelectorAll('.project-details-btn');
+    
+    const projectData = {
+        'task-manager': {
+            title: 'Task Manager App',
+            description: 'A full-stack task management application built with React frontend and Node.js backend. Features include user authentication, CRUD operations, real-time updates, and responsive design.',
+            tags: ['React', 'Node.js', 'MongoDB', 'JWT', 'Express'],
+            features: [
+                'User authentication and authorization',
+                'Create, read, update, delete tasks',
+                'Real-time updates with Socket.io',
+                'Responsive design for all devices',
+                'JWT token-based security'
+            ],
+            github: '#',
+            demo: '#',
+            image: 'assets/project1.jpg',
+            video: null
+        },
+        'weather': {
+            title: 'Weather Dashboard',
+            description: 'A beautiful weather application that displays current weather and forecasts using the OpenWeatherMap API. Features include location-based weather, 5-day forecast, and animated weather icons.',
+            tags: ['JavaScript', 'API', 'CSS3', 'HTML5'],
+            features: [
+                'Current weather display',
+                '5-day weather forecast',
+                'Location-based weather',
+                'Animated weather icons',
+                'Responsive design'
+            ],
+            github: '#',
+            demo: '#',
+            image: 'assets/project2.jpg',
+            video: null
+        },
+        'ecommerce': {
+            title: 'E-commerce Platform',
+            description: 'A modern e-commerce platform built with React and Redux. Includes product catalog, shopping cart, user authentication, and Stripe payment integration.',
+            tags: ['React', 'Redux', 'Stripe', 'Firebase'],
+            features: [
+                'Product catalog with search',
+                'Shopping cart functionality',
+                'User authentication',
+                'Stripe payment integration',
+                'Order management system'
+            ],
+            github: '#',
+            demo: '#',
+            image: 'assets/project3.jpg',
+            video: null
+        }
+    };
+    
+    projectDetailsBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const projectId = btn.getAttribute('data-project');
+            const project = projectData[projectId];
+            
+            if (project) {
+                document.getElementById('modal-title').textContent = project.title;
+                document.getElementById('modal-description').textContent = project.description;
+                
+                // Встановлюємо медіа контент
+                const modalImage = document.getElementById('modal-image');
+                const modalVideo = document.getElementById('modal-video');
+                
+                if (project.video) {
+                    modalImage.style.display = 'none';
+                    modalVideo.style.display = 'block';
+                    modalVideo.querySelector('source').src = project.video;
+                    modalVideo.load();
+                } else {
+                    modalImage.style.display = 'block';
+                    modalVideo.style.display = 'none';
+                    modalImage.src = project.image;
+                }
+                
+                const modalTags = document.querySelector('.modal-tags');
+                modalTags.innerHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                
+                const featuresList = document.getElementById('modal-features-list');
+                featuresList.innerHTML = project.features.map(feature => `<li>${feature}</li>`).join('');
+                
+                document.getElementById('modal-github').href = project.github;
+                document.getElementById('modal-demo').href = project.demo;
+                
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+    
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+    
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+</script>
+
+<script>
+    // Staggered reveal for all main sections
+    document.querySelectorAll('.staggered-section').forEach(section => {
+        section.classList.remove('staggered-animate');
+    });
+    const staggeredObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('staggered-animate');
+                staggeredObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.staggered-section').forEach(section => {
+        staggeredObserver.observe(section);
+    });
+</script>
+
 </body>
 
 </html>
