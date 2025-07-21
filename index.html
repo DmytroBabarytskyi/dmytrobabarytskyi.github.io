@@ -451,28 +451,47 @@
     });
 </script>
 <script>
-    let lastScroll = 0;
     const navbar = document.getElementById('navbar');
+    let scrollTimeout;
+    let showTimeout;
+    let lastScroll = window.pageYOffset;
+
+    const showNavbar = () => {
+        navbar.style.top = '0';
+    };
+
+    const hideNavbar = () => {
+        // Якщо користувач не у верхній частині сайту
+        if (window.pageYOffset > 100) {
+            navbar.style.top = '-100px';
+        }
+    };
 
     window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
+        const currentScrollTop = window.pageYOffset;
 
-        if (currentScroll <= 0) {
-            navbar.style.top = '0';
-            return;
+        clearTimeout(scrollTimeout);
+        clearTimeout(showTimeout);
+
+        // Якщо скрол вниз — готуємо приховати
+        if (currentScrollTop > lastScroll) {
+            scrollTimeout = setTimeout(hideNavbar, 1500); // сховатись через 1.5с
         }
 
-        if (currentScroll > lastScroll) {
-            // Прокручуємо вниз — сховати
-            navbar.style.top = '-100px';
-        } else {
-            // Прокручуємо вгору — показати
-            navbar.style.top = '0';
+        // Якщо скрол вгору — з'явитись через 200мс, не одразу
+        else if (currentScrollTop < lastScroll) {
+            showTimeout = setTimeout(showNavbar, 200);
         }
 
-        lastScroll = currentScroll;
+        // Якщо на самому верху — завжди показувати
+        if (currentScrollTop <= 100) {
+            showNavbar();
+        }
+
+        lastScroll = currentScrollTop;
     });
 </script>
+
 <script>
     const parallaxBg = document.querySelector('.parallax-bg');
     window.addEventListener('scroll', () => {
