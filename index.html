@@ -255,6 +255,15 @@
         </div>
         <div class="skills-list-animated">
             <div class="skill-bar">
+                <span>SQL & NoSQL Databases</span>
+                <div class="skill-info">
+                    <div class="bar" style="width: 95%;">
+                        <div class="progress" data-percent="95"></div>
+                        <span class="skill-percent">0%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-bar">
                 <span>Java / Spring Boot</span>
                 <div class="skill-info">
                     <div class="bar" style="width: 90%;">
@@ -264,7 +273,16 @@
                 </div>
             </div>
             <div class="skill-bar">
-                <span>TypeScript / React</span>
+                <span>Python</span>
+                <div class="skill-info">
+                    <div class="bar" style="width: 87%;">
+                        <div class="progress" data-percent="87"></div>
+                        <span class="skill-percent">0%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-bar">
+                <span>Git</span>
                 <div class="skill-info">
                     <div class="bar" style="width: 85%;">
                         <div class="progress" data-percent="85"></div>
@@ -273,16 +291,16 @@
                 </div>
             </div>
             <div class="skill-bar">
-                <span>C# / Unity</span>
+                <span>TypeScript / React</span>
                 <div class="skill-info">
-                    <div class="bar" style="width: 80%;">
-                        <div class="progress" data-percent="80"></div>
+                    <div class="bar" style="width: 83%;">
+                        <div class="progress" data-percent="83"></div>
                         <span class="skill-percent">0%</span>
                     </div>
                 </div>
             </div>
             <div class="skill-bar">
-                <span>Python</span>
+                <span>C# / Unity</span>
                 <div class="skill-info">
                     <div class="bar" style="width: 80%;">
                         <div class="progress" data-percent="80"></div>
@@ -348,12 +366,17 @@
         <div class="project-filters" id="project-filters"></div>
 
         <div class="projects-grid">
-            <div class="project-card" data-category="unity csharp">
-                <img src="assets/Projects/Echoes1.png" alt="Echoes of Sorcery" class="project-image">
-                <h3>Echoes of Sorcery</h3>
-                <p>Indie multiplayer fantasy game (Unity + SteamAPI). Devlog on YouTube.</p>
-                <div class="project-tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">SteamAPI</span></div>
-                <button class="btn project-details-btn" data-project="Echoes">View Details</button>
+            <div class="project-card" data-category="nextjs react typescript mongodb">
+                <img src="assets/Projects/Landmarks1.png" alt="Landmarks" class="project-image">
+                <h3>Landmarks</h3>
+                <p>Web app where users can save personal places on a map with photos & notes. Future ML recommendations with scikit-learn.</p>
+                <div class="project-tags">
+                    <span class="tag">Next.js</span>
+                    <span class="tag">React</span>
+                    <span class="tag">TypeScript</span>
+                    <span class="tag">MongoDB</span>
+                </div>
+                <button class="btn project-details-btn" data-project="Landmarks">View Details</button>
             </div>
 
             <div class="project-card" data-category="spring react">
@@ -378,6 +401,14 @@
                 <p>Scientific work manager — Java Spring web app for document handling.</p>
                 <div class="project-tags"><span class="tag">Spring</span><span class="tag">Java</span><span class="tag">HTML</span></div>
                 <button class="btn project-details-btn" data-project="SWManager">View Details</button>
+            </div>
+
+            <div class="project-card" data-category="unity csharp">
+                <img src="assets/Projects/Echoes1.png" alt="Echoes of Sorcery" class="project-image">
+                <h3>Echoes of Sorcery</h3>
+                <p>Indie multiplayer fantasy game (Unity + SteamAPI). Devlog on YouTube.</p>
+                <div class="project-tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">SteamAPI</span></div>
+                <button class="btn project-details-btn" data-project="Echoes">View Details</button>
             </div>
 
         </div>
@@ -631,20 +662,20 @@
     const projectDetailsBtns = document.querySelectorAll('.project-details-btn');
 
     const projectData = {
-        'Echoes': {
-            title: 'Echoes of Sorcery',
-            description: 'An indie multiplayer fantasy game developed in Unity where players act as sorcerers-for-hire. Features cooperative missions, character progression, and devlog documentation.',
-            tags: ['Unity', 'C#', 'SteamAPI', 'Multiplayer'],
+        'Landmarks': {
+            title: 'Personal Landmarks',
+            description: 'A full-stack web app where users can mark personal landmarks on an interactive map, add descriptions & photos, and view them later. Planned ML integration (scikit-learn) to recommend new places based on user history.',
+            tags: ['Next.js', 'React', 'TypeScript', 'MongoDB', 'Python'],
             features: [
-                'Multiplayer implemented using SteamAPI',
-                'Fantasy setting with cooperative gameplay',
-                'Devlog series covering design and development',
-                'Mission-based progression system',
-                'Real-time interaction and physics-based items'
+                'Interactive map with custom user markers',
+                'Save and edit landmarks with photos & descriptions',
+                'MongoDB NoSQL database for user data and landmarks',
+                'ML recommendation system (scikit-learn, Python)',
+                'Responsive Next.js + React frontend'
             ],
             github: '#',
             demo: '#',
-            image: 'assets/Projects/Echoes2.png',
+            image: 'assets/Projects/Landmarks2.png',
             video: null
         },
         'AidFlow': {
@@ -693,6 +724,22 @@
             github: 'https://github.com/DmytroBabarytskyi/SWManager',
             demo: '#',
             image: 'assets/Projects/SWManager2.png',
+            video: null
+        },
+        'Echoes': {
+            title: 'Echoes of Sorcery',
+            description: 'An indie multiplayer fantasy game developed in Unity where players act as sorcerers-for-hire. Features cooperative missions, character progression, and devlog documentation.',
+            tags: ['Unity', 'C#', 'SteamAPI', 'Multiplayer'],
+            features: [
+                'Multiplayer implemented using SteamAPI',
+                'Fantasy setting with cooperative gameplay',
+                'Devlog series covering design and development',
+                'Mission-based progression system',
+                'Real-time interaction and physics-based items'
+            ],
+            github: '#',
+            demo: '#',
+            image: 'assets/Projects/Echoes2.png',
             video: null
         }
     };
