@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Error | MyPortfolio</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .error-hero {
+      position: relative;
+      height: 100vh;
+      background-image: url('assets/Background.png');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      overflow: hidden;
+    }
+
+    .error-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 50, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .error-overlay h1 {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .error-overlay h2 {
+      font-weight: 400;
+      margin-bottom: 2rem;
+    }
+
+    .btn-home {
+      display: inline-block;
+      background-color: var(--accent, #0077cc);
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .btn-home:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+
+<body>
+<section class="error-hero">
+  <div class="error-overlay">
+    <h1>404</h1>
+    <h2>Oops! The page you're looking for doesn't exist.</h2>
+    <a href="index.html" class="btn-home">Back to Home</a>
+  </div>
+</section>
+</body>
+</html>
